@@ -1,0 +1,20 @@
+[
+  {
+    "type": "Bid Submitted"
+  },
+  {
+    "type": "Work Scheduled"
+  },
+  {
+    "type": "Payment Received"
+  },
+  {
+    "type": "Payment Failed"
+  },
+  {
+    "type": "Work Scheduled"
+  },
+  {
+    "type": "Work Scheduled"
+  }
+]
