@@ -1,20 +1,32 @@
 [
   {
-    "type": "Bid Submitted"
+    "type": "Bid Submitted",
+    "subject": "Bid Placed",
+    "body": "Your bid has been place. You will receieve an email if you are selected."
   },
   {
-    "type": "Work Scheduled"
+    "type": "Work Scheduled",
+    "subject": "You have been scheduled",
+    "body": "You have been scheduled to work on Monday, June 23rd."
   },
   {
-    "type": "Payment Received"
+    "type": "Payment Received",
+    "subject": "Payment Sent",
+    "body": "Your payment has been sent to the banking account on file."
   },
   {
-    "type": "Payment Failed"
+    "type": "Payment Failed",
+    "subject": "Payment Failed",
+    "body": "Payment sent to the bank account on file has failed. Please reach out to local representative to update banking info."
   },
   {
-    "type": "Work Scheduled"
+    "type": "Work Scheduled",
+    "subject": "You have been scheduled",
+    "body": "You have been scheduled to work on Friday, June 1st."
   },
   {
-    "type": "Work Scheduled"
+    "type": "Bid Submitted",
+    "subject": "Bid Placed",
+    "body": "Your bid has been place. You will receieve an email if you are selected."
   }
 ]
