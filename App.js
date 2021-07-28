@@ -31,8 +31,12 @@ const App = () => {
   };
 
   const close = () => {
-    setModalVisible(!modalVisible);
-    filterCategories(selectedCategory);
+    if (selectedCategory.length === 0) {
+      showAll();
+    } else {
+      setModalVisible(!modalVisible);
+      filterCategories(selectedCategory);
+    }
   }
 
   const showAll = () => {
