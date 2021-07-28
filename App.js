@@ -1,14 +1,46 @@
 import React, { useState } from "react";
-import { Alert, Modal, StyleSheet, Text, Pressable, View, ScrollView } from "react-native";
+import {
+  Alert,
+  Modal,
+  StyleSheet,
+  Text,
+  Pressable,
+  View,
+  ScrollView
+} from "react-native";
 import CategoryType from "./components/CategoryType";
 import Message from "./components/Message";
-import allMessages from './messages.json';
+import allMessages from "./messages.json";
 
-const messageTypes = ["Bid Submitted", "Work Scheduled", "Payment Received", "Payment Failed"]
+const messageTypes = [
+  "Bid Submitted",
+  "Work Scheduled",
+  "Payment Received",
+  "Payment Failed"
+];
 
 const App = () => {
-
+  const [filterCat, setFilterCat] = useState([...allMessages]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState([])
+
+  const filterCategories = category => {
+    setFilterCat(() => {
+      return allMessages.filter(message => category.includes(message.type));
+    });
+  };
+
+  const close = () => {
+    setModalVisible(!modalVisible);
+    filterCategories(selectedCategory);
+  }
+
+  const showAll = () => {
+    setModalVisible(!modalVisible);
+    setFilterCat([...allMessages])
+    setSelectedCategory([]);
+  }
+
 
   return (
     <View style={styles.outer}>
@@ -23,14 +55,30 @@ const App = () => {
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Text style={styles.explainer} >Filter by Catagory</Text>
-              {messageTypes.map(type => <CategoryType key={type} type={type} />)}
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text style={styles.textStyle}>Hide Modal</Text>
-              </Pressable>
+              <Text style={styles.explainer}>Filter by Catagory</Text>
+              {messageTypes.map(type => (
+                <CategoryType
+                  key={type}
+                  type={type}
+                  filterCategories={filterCategories}
+                  setSelectedCategory={setSelectedCategory}
+                  selectedCategory={selectedCategory}
+                />
+              ))}
+              <View style={styles.buttonLayout}>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={close}
+                >
+                  <Text style={styles.textStyle}>Filter</Text>
+                </Pressable>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={showAll}
+                >
+                  <Text style={styles.textStyle}>Show All</Text>
+                </Pressable>
+              </View>
             </View>
           </View>
         </Modal>
@@ -43,7 +91,7 @@ const App = () => {
       </View>
       <ScrollView>
         <View style={styles.scrollDiv}>
-          {allMessages.map(words => (
+          {filterCat.map(words => (
             <View key={Math.random().toString()}>
               <Message words={words} />
             </View>
@@ -56,7 +104,7 @@ const App = () => {
 
 const styles = StyleSheet.create({
   outer: {
-    marginTop: 50,
+    marginTop: 50
   },
   centeredView: {
     flex: 1,
@@ -83,19 +131,20 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     elevation: 2,
-    width: '30%'
+    width: "45%"
   },
   buttonOpen: {
-    backgroundColor: "#F194FF",
+    backgroundColor: "#F194FF"
   },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: "#2196F3"
   },
   textStyle: {
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 3,
+    padding: 2
   },
   modalText: {
     marginBottom: 15,
@@ -104,16 +153,21 @@ const styles = StyleSheet.create({
   explainer: {
     fontSize: 20,
     borderBottomWidth: 2,
-    borderBottomColor: 'black',
-    paddingBottom: 3,
+    borderBottomColor: "black",
+    paddingBottom: 3
   },
   scrollDiv: {
     justifyContent: "center",
-    backgroundColor: 'red',
     alignItems: "center",
     justifyContent: "center",
-    marginVertical: 10,
-
+    marginVertical: 10
+  },
+  buttonLayout: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    width: "60%",
+    marginTop: 7
   }
 
 });
